@@ -88,9 +88,6 @@ def relight_image(model, inputs):
         sh = np.array([ 1.0841255, -0.46426763, -0.5112382, 0.44399628, -0.18662894, 0.3108669,
                         0.2021743, -0.31486818, 0.0397438 ])
 
-    print(user_choice)
-    print(sh)
-    #sh = sh[0:9]
     sh = sh * 0.7
 
     sh = np.squeeze(sh)
@@ -148,15 +145,11 @@ def relight_image(model, inputs):
     inputL = inputL[None, None, ...]
     inputL = Variable(torch.from_numpy(inputL).to(device))
 
-    user_choice = inputs["lighting_choice"]
 
     sh = np.array([inputs["param0"], inputs["param1"], inputs["param2"], inputs["param3"],
                    inputs["param4"], inputs["param5"], inputs["param6"], inputs["param7"],
                    inputs["param8"]])
 
-    print(user_choice)
-    print(sh)
-    # sh = sh[0:9]
     sh = sh * 0.7
 
     sh = np.squeeze(sh)
