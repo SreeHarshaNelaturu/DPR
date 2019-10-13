@@ -148,7 +148,7 @@ def relight_image(model, inputs):
     inputL = Variable(torch.from_numpy(inputL).to(device))
 
 
-    sh = np.array([inputs["L00"], inputs["L1-1"], inputs["L10"], inputs["L11"],
+    sh = np.array([inputs["Intensity"], inputs["Distance"], inputs["Y"], inputs["X"],
                    inputs["L2-2"], inputs["L2-1"], inputs["L20"], inputs["L21"],
                    inputs["L22"]])
     sh = sh[0:9]
@@ -181,4 +181,4 @@ def relight_image(model, inputs):
 
 
 if __name__ == "__main__":
-    runway.run()
+    runway.run(model_options={"checkpoint" : "trained_model/trained_model_03.t7" })
