@@ -28,8 +28,9 @@ preset_parameters = category(choices=["left", "top_left", "top", "top_right", "r
 preset_inputs = {"input_image" : image, "preset_parameters" : preset_parameters}
 preset_outputs = {"output_image" : image}
 
-custom_inputs = {"input_image" : image, "param0" : number, "param1" : number, "param2" : number, "param3" : number,
-          "param4" : number, "param5" : number, "param6" : number, "param7" : number, "param8" : number}
+custom_inputs = {"input_image" : image, "L00" : number, "L1-1" : number, "L10" : number,
+                 "L11" : number, "L2-2" : number, "L2-1" : number, "L20" : number,
+                 "L21" : number, "L22" : number}
 custom_outputs = {"output_image" : image}
 
 
@@ -146,9 +147,9 @@ def relight_image(model, inputs):
     inputL = Variable(torch.from_numpy(inputL).to(device))
 
 
-    sh = np.array([inputs["param0"], inputs["param1"], inputs["param2"], inputs["param3"],
-                   inputs["param4"], inputs["param5"], inputs["param6"], inputs["param7"],
-                   inputs["param8"]])
+    sh = np.array([inputs["L00"], inputs["L1-1"], inputs["L10"], inputs["L11"],
+                   inputs["L2-2"], inputs["L2-1"], inputs["L20"], inputs["L21"],
+                   inputs["L22"]])
 
     sh = sh * 0.7
 
