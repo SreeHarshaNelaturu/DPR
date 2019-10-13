@@ -29,9 +29,9 @@ preset_parameters = category(choices=["left", "top_left", "top", "top_right", "r
 preset_inputs = {"input_image" : image, "preset_parameters" : preset_parameters}
 preset_outputs = {"output_image" : image}
 
-custom_inputs = {"input_image" : image, "L00" : number, "L1-1" : number, "L10" : number,
-                 "L11" : number, "L2-2" : number, "L2-1" : number, "L20" : number,
-                 "L21" : number, "L22" : number}
+custom_inputs = {"input_image" : image, "Intensity" : number(step=0.001, min=-5, max=5), "Distance" : number(step=0.001, min=-5, max=5), "Y" : number(step=0.001, min=-5, max=5),
+                 "X" : number(step=0.001, min=-5, max=5), "L2-2" : number(step=0.001, min=-5, max=5), "L2-1" : number(step=0.001, min=-5, max=5), "L20" : number(step=0.001, min=-5, max=5),
+                 "L21" : number(step=0.001, min=-5, max=5), "L22" : number(step=0.001, min=-5, max=5)}
 custom_outputs = {"output_image" : image}
 
 
@@ -89,7 +89,7 @@ def relight_image(model, inputs):
     elif user_choice == "bottom_left":
         sh = np.array([ 1.0841255, -0.46426763, -0.5112382, 0.44399628, -0.18662894, 0.3108669,
                         0.2021743, -0.31486818, 0.0397438 ])
-
+    sh = sh[0:9]
     sh = sh * 0.7
 
     sh = np.squeeze(sh)
@@ -116,7 +116,7 @@ def relight_image(model, inputs):
     return { "output_image" : resultLab}
 
 
-@runway.command("relight_image_custom", inputs=custom_inputs, outputs=custom_outputs, description="Relight Images from custom parameters.")
+@runway.command("relight_using_coefficients", inputs=custom_inputs, outputs=custom_outputs, description="Relight images using custom coefficients.")
 def relight_image(model, inputs):
     img_size = 256
     x = np.linspace(-1, 1, img_size)
@@ -151,7 +151,7 @@ def relight_image(model, inputs):
     sh = np.array([inputs["L00"], inputs["L1-1"], inputs["L10"], inputs["L11"],
                    inputs["L2-2"], inputs["L2-1"], inputs["L20"], inputs["L21"],
                    inputs["L22"]])
-
+    sh = sh[0:9]
     sh = sh * 0.7
 
     sh = np.squeeze(sh)
@@ -182,4 +182,3 @@ def relight_image(model, inputs):
 
 if __name__ == "__main__":
     runway.run()
-
