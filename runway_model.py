@@ -17,6 +17,7 @@ def setup(opts):
     model = HourglassNet()
     model.load_state_dict(torch.load(opts["checkpoint"]))
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print("Using Device {}".format(device))
     model.to(device)
     model.train(False)
     return model
@@ -180,5 +181,5 @@ def relight_image(model, inputs):
 
 
 if __name__ == "__main__":
-    runway.run(model_options={"checkpoint" : "trained_model/trained_model_03.t7"})
+    runway.run()
 
